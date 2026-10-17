@@ -24,9 +24,10 @@ app.use( express.json() );
 app.use( '/api/auth', require( './routes/auth' ) );
 app.use( '/api/events', require( './routes/events' ) );
 
-app.use( '*', ( req, res ) => {
-  res.sendFile( path.join( __dirname, 'public/index.html' ) );
-} );
+// Fallback para React Router
+app.get('/{*splat}', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Escuchar peticiones
 app.listen( process.env.PORT, () => {
